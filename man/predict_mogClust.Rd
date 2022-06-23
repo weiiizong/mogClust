@@ -4,16 +4,18 @@
 \alias{predict_mogClust}
 \title{Predict subtype/cluster assignment probabilities, labels and outcome matrix for new data.}
 \usage{
-predict_mogClust(X, G, Y, result)
+predict_mogClust(G, X = NULL, Y = NULL, result)
 }
 \arguments{
-\item{X}{The matrix for new confounding variables. Rows are samples and columns are confounding
-variables.}
-
 \item{G}{The matrix for new omics data. Rows are samples and columns are omic features.}
 
+\item{X}{The matrix for new confounding variables. Rows are samples and columns are confounding
+variables. If NULL, only predicted subtype/cluster assignment probabilities and labels will
+be generated.}
+
 \item{Y}{The matrix for new multivariate outcomes. Rows are samples and columns are outcome
-variables.}
+variables. If NULL, only predicted subtype/cluster assignment probabilities and labels will
+be generated.}
 
 \item{result}{The list output from function \code{fit_mogClust}.}
 }
@@ -22,7 +24,8 @@ A list object
 \itemize{
  \item{\code{pred_prob}}{predicted subtype/cluster assignment probabilities.}
  \item{\code{pred_lb}}{predicted subtype/cluster assignment labels.}
- \item{\code{pred_outcome}}{predicted outcome matrix.}
+ \item{\code{pred_outcome}}{predicted outcome matrix. Only generated if both X and Y are
+ provided.}
 }
 }
 \description{
