@@ -102,7 +102,7 @@ str(fit,max.level = 1)
 ```
 
 * Prediction of new dataset.
-The subtypes of new data can be predicted using function `predict_mogClust`. If both covariate matrix `X` and `Y` are provided, predicted outcome matrix will also be generated, otherwise, only predicted probability assignment of subtypes and labels will be generated. `G` is the new omics data and `result` is the list output from the function `fit_mogClust`.
+The subtypes of a new data can be predicted using function `predict_mogClust`. If both covariate matrices `X` and `Y` are provided, predicted outcome matrix will also be generated, otherwise, only predicted probability assignments of subtypes and labels will be generated. `G` is the new omics data and `result` is the list output from the function `fit_mogClust`.
 
 ```{R}
 predict_mogClust(G = G, X = NULL, Y = NULL, result = fit)
