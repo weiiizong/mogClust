@@ -70,7 +70,7 @@ Sigma = diag(abs(rnorm(ncol(Y))),nrow = nq)
 initials_list = list(B=B, C=C, Sigma=Sigma, gamma=gamma)
 
 ```
-* Fit the mogClust model by 'fit_mogClust' function.
+* Fit the mogClust model by `fit_mogClust` function.
 
 ```{R}
 full_fit = fit_mogClust(G, X, Y, gamma = initials_list$gamma, Sigma = initials_list$Sigma, 
