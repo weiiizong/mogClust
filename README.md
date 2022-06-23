@@ -73,28 +73,38 @@ initials_list = list(B=B, C=C, Sigma=Sigma, gamma=gamma)
 * Fit the mogClust model by `fit_mogClust` function.
 
 ```{R}
-full_fit = fit_mogClust(G, X, Y, gamma = initials_list$gamma, Sigma = initials_list$Sigma, 
-                        B = initials_list$B, C = initials_list$C, K, lambdaB = lambdaB, lambdaG.seq=lambdaG,
-                        runs = 200, quite=FALSE, alphaG = 0.5, seed = "fixed")
+fit = fit_mogClust(G, X, Y, gamma = initials_list$gamma, Sigma = initials_list$Sigma, 
+                   B = initials_list$B, C = initials_list$C, K, lambdaB = lambdaB, lambdaG.seq=lambdaG,
+                   runs = 200, quite=FALSE, alphaG = 0.5, seed = "fixed")
 ```
 
 * Output of the fitted model.
+The output is a list of fitted parameters (`gamma, Sigma, B, C`), tunning parameters (`lambdaG_path, lambdaB, K`), model fitting metrices (`BIC, R2_RMSE_table`), predicted probability assignment of subytpes (`pred_prob`), predicted subtype assignment (`pred_lb`) and predited outcome matrix (`pred_outcome`).
+
 ```{R}
 str(fit,max.level = 1)
-List of 12
- $ gamma        : num [1:1000, 1:3] 0 0 0 0 0 ...
- $ Sigma        : num [1:7, 1:7] 0.5657 0.4646 0.3315 -0.3312 -0.0648 ...
-  ..- attr(*, "dimnames")=List of 2
- $ B            : num [1:7, 1:4] -0.368 0.74 -0.865 0.437 0 ...
- $ C            : num [1:3, 1:7] 0.8824 0.0336 0.8311 0.8079 0.0299 ...
-  ..- attr(*, "dimnames")=List of 2
- $ lambdaG_path : num [1:48] 0.151 0.151 0.151 0.151 0.151 ...
- $ lambdaB      : num 0.00244
- $ R2_RMSE_table:'data.frame':	7 obs. of  2 variables:
- $ BIC          : num 4308
- $ K            : num 4
- $ pred_prob    : num [1:259, 1:4] 0.4154 0.546 0.4078 0.2951 0.0868 ...
- $ pred_lb      : Factor w/ 4 levels "1","2","3","4": 1 1 1 1 3 1 1 4 4 1 ...
- $ pred_outcome : num [1:259, 1:7] -0.6925 -0.659 -0.0102 0.0194 0.2253 ...
-  ..- attr(*, "dimnames")=List of 2
+#List of 12
+# $ gamma        : num [1:1000, 1:3] 0 0 0 0 0 ...
+# $ Sigma        : num [1:7, 1:7] 0.5657 0.4646 0.3315 -0.3312 -0.0648 ...
+#  ..- attr(*, "dimnames")=List of 2
+# $ B            : num [1:7, 1:4] -0.368 0.74 -0.865 0.437 0 ...
+# $ C            : num [1:3, 1:7] 0.8824 0.0336 0.8311 0.8079 0.0299 ...
+#  ..- attr(*, "dimnames")=List of 2
+# $ lambdaG_path : num [1:48] 0.151 0.151 0.151 0.151 0.151 ...
+# $ lambdaB      : num 0.00244
+# $ R2_RMSE_table:'data.frame':	7 obs. of  2 variables:
+# $ BIC          : num 4308
+# $ K            : num 4
+# $ pred_prob    : num [1:259, 1:4] 0.4154 0.546 0.4078 0.2951 0.0868 ...
+# $ pred_lb      : Factor w/ 4 levels "1","2","3","4": 1 1 1 1 3 1 1 4 4 1 ...
+# $ pred_outcome : num [1:259, 1:7] -0.6925 -0.659 -0.0102 0.0194 0.2253 ...
+#  ..- attr(*, "dimnames")=List of 2
 ```
+
+* Prediction of new dataset.
+The subtypes of new data can be predicted using function `predict_mogClust`. If both covariate matrix `X` and `Y` are provided, predicted outcome matrix will also be generated, otherwise, only predicted probability assignment of subtypes and labels will be generated. `G` is the new omics data and `result` is the list output from the function `fit_mogClust`.
+
+```{R}
+predict_mogClust(G = G, X = NULL, Y = NULL, result = fit)
+```
+
